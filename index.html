@@ -1,0 +1,1044 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Trivia Empresarial CENEVAL</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy: #0D1B2A;
+  --blue: #1B4FBF;
+  --blue2: #1640a0;
+  --gold: #F5A623;
+  --gold2: #e09510;
+  --green: #1DB954;
+  --red: #E63946;
+  --purple: #7C3AED;
+  --teal: #00BCD4;
+  --white: #FFFFFF;
+  --light: #EEF4FF;
+  --card-bg: #162035;
+  --cell-a: #16213E;
+  --cell-b: #1E2A4A;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Nunito', sans-serif;
+  background: var(--navy);
+  color: var(--white);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* ── BG DECORATION ── */
+body::before {
+  content: '';
+  position: fixed;
+  top: -200px; left: -200px;
+  width: 600px; height: 600px;
+  background: radial-gradient(circle, rgba(27,79,191,0.18) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+body::after {
+  content: '';
+  position: fixed;
+  bottom: -150px; right: -150px;
+  width: 500px; height: 500px;
+  background: radial-gradient(circle, rgba(245,166,35,0.12) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ── SCREENS ── */
+.screen { display: none; position: relative; z-index: 1; min-height: 100vh; }
+.screen.active { display: flex; flex-direction: column; }
+
+/* ════════════════════════════════
+   START SCREEN
+════════════════════════════════ */
+#screen-start {
+  align-items: center;
+  justify-content: center;
+  padding: 32px 20px;
+  text-align: center;
+}
+
+.brand-logo {
+  width: 90px; height: 90px;
+  border-radius: 50%;
+  background: var(--blue);
+  border: 3px solid var(--gold);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 42px;
+  margin: 0 auto 16px;
+  animation: pulse 2.5s ease-in-out infinite;
+}
+@keyframes pulse {
+  0%,100% { box-shadow: 0 0 0 0 rgba(245,166,35,0.4); }
+  50% { box-shadow: 0 0 0 14px rgba(245,166,35,0); }
+}
+
+.main-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(52px, 10vw, 88px);
+  line-height: 0.95;
+  color: var(--gold);
+  letter-spacing: 2px;
+  margin-bottom: 4px;
+}
+.main-sub {
+  font-size: 14px;
+  color: rgba(255,255,255,0.6);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.brand-tag {
+  display: inline-block;
+  background: var(--blue);
+  color: var(--white);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  padding: 4px 14px;
+  border-radius: 20px;
+  margin-bottom: 32px;
+  text-transform: uppercase;
+}
+
+.setup-card {
+  background: var(--card-bg);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 20px;
+  padding: 28px 28px 24px;
+  width: 100%;
+  max-width: 420px;
+}
+
+.setup-section-label {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--gold);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+  text-align: left;
+}
+
+.count-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-bottom: 22px;
+}
+.count-btn {
+  width: 38px; height: 38px;
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,0.2);
+  background: rgba(255,255,255,0.06);
+  color: var(--white);
+  font-size: 20px;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: background 0.15s;
+}
+.count-btn:hover { background: rgba(255,255,255,0.14); }
+#player-count-display {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 36px;
+  color: var(--gold);
+  min-width: 32px;
+  text-align: center;
+}
+.count-label { font-size: 13px; color: rgba(255,255,255,0.5); }
+
+.players-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 20px; }
+.player-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 12px;
+  transition: border-color 0.2s;
+}
+.player-row:focus-within { border-color: var(--blue); }
+.color-dot { width: 18px; height: 18px; border-radius: 50%; flex-shrink: 0; }
+.player-row input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: var(--white);
+  font-size: 14px;
+  font-family: 'Nunito', sans-serif;
+  font-weight: 600;
+}
+.player-row input::placeholder { color: rgba(255,255,255,0.3); }
+
+.btn-start {
+  width: 100%;
+  padding: 16px;
+  background: var(--gold);
+  color: var(--navy);
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 22px;
+  letter-spacing: 2px;
+  border: none;
+  border-radius: 14px;
+  cursor: pointer;
+  transition: background 0.15s, transform 0.1s;
+}
+.btn-start:hover { background: var(--gold2); }
+.btn-start:active { transform: scale(0.98); }
+
+.stats-row {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 16px;
+}
+.stat-badge {
+  font-size: 11px;
+  color: rgba(255,255,255,0.4);
+  display: flex; align-items: center; gap: 4px;
+}
+
+/* ════════════════════════════════
+   GAME SCREEN
+════════════════════════════════ */
+#screen-game {
+  flex-direction: column;
+  padding: 0;
+}
+
+.game-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  background: rgba(0,0,0,0.3);
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+.game-header-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 22px;
+  color: var(--gold);
+  letter-spacing: 1px;
+}
+.turn-chip {
+  font-size: 12px;
+  font-weight: 700;
+  padding: 5px 14px;
+  border-radius: 20px;
+  background: var(--blue);
+  color: var(--white);
+}
+
+.game-body {
+  display: flex;
+  gap: 12px;
+  padding: 12px;
+  flex: 1;
+  overflow: hidden;
+}
+
+/* Board */
+.board-wrap {
+  flex: 1;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  min-width: 0;
+}
+#board-canvas {
+  border-radius: 12px;
+  display: block;
+  max-width: 100%;
+}
+
+/* Sidebar */
+.sidebar {
+  width: 185px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  overflow-y: auto;
+  max-height: calc(100vh - 64px);
+}
+
+.sidebar-card {
+  background: var(--card-bg);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 14px;
+  padding: 12px;
+}
+.sidebar-label {
+  font-size: 10px;
+  font-weight: 700;
+  color: rgba(255,255,255,0.4);
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  margin-bottom: 10px;
+}
+
+.pcard {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 10px;
+  border-radius: 10px;
+  margin-bottom: 6px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid transparent;
+  transition: border-color 0.2s, background 0.2s;
+}
+.pcard:last-child { margin-bottom: 0; }
+.pcard.current {
+  background: rgba(27,79,191,0.2);
+  border-color: var(--blue);
+}
+.pcard-dot { width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0; }
+.pcard-info { flex: 1; min-width: 0; }
+.pcard-name {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--white);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.pcard-pos { font-size: 10px; color: rgba(255,255,255,0.45); }
+.pcard-turn { font-size: 10px; color: var(--gold); font-weight: 700; }
+
+/* Dice */
+.dice-wrap { text-align: center; }
+.dice-face {
+  font-size: 52px;
+  line-height: 1;
+  display: block;
+  margin-bottom: 10px;
+  transition: transform 0.08s;
+}
+.dice-face.rolling {
+  animation: diceroll 0.55s ease-in-out;
+}
+@keyframes diceroll {
+  0%   { transform: rotate(0deg)   scale(1); }
+  20%  { transform: rotate(-18deg) scale(0.85); }
+  40%  { transform: rotate(14deg)  scale(1.15); }
+  60%  { transform: rotate(-10deg) scale(0.92); }
+  80%  { transform: rotate(7deg)   scale(1.06); }
+  100% { transform: rotate(0deg)   scale(1); }
+}
+.btn-roll {
+  width: 100%;
+  padding: 11px;
+  background: var(--blue);
+  color: var(--white);
+  border: none;
+  border-radius: 10px;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 18px;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: background 0.15s, transform 0.1s;
+}
+.btn-roll:hover:not(:disabled) { background: var(--blue2); }
+.btn-roll:active:not(:disabled) { transform: scale(0.97); }
+.btn-roll:disabled { opacity: 0.45; cursor: not-allowed; }
+
+/* Log */
+.log-entries { display: flex; flex-direction: column; gap: 4px; max-height: 130px; overflow-y: auto; }
+.log-entry {
+  font-size: 10.5px;
+  color: rgba(255,255,255,0.6);
+  padding: 3px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  line-height: 1.4;
+}
+.log-entry:last-child { border-bottom: none; }
+.log-entry.special { color: var(--gold); font-weight: 700; }
+.log-entry.bad { color: #ff8a80; }
+.log-entry.good { color: #69f0ae; }
+
+/* ════════════════════════════════
+   QUESTION SCREEN
+════════════════════════════════ */
+#screen-q {
+  align-items: center;
+  justify-content: center;
+  padding: 24px 20px;
+  min-height: 100vh;
+}
+
+.q-container {
+  width: 100%;
+  max-width: 580px;
+  background: var(--card-bg);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 22px;
+  overflow: hidden;
+}
+.q-top {
+  padding: 18px 22px 14px;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.q-player-badge {
+  padding: 5px 14px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--white);
+}
+.q-label {
+  font-size: 12px;
+  color: rgba(255,255,255,0.45);
+}
+.q-body { padding: 22px; }
+.q-text {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--white);
+  line-height: 1.5;
+  margin-bottom: 20px;
+}
+.q-note {
+  font-size: 12px;
+  color: rgba(255,255,255,0.4);
+  margin-bottom: 16px;
+  display: flex;
+  gap: 16px;
+}
+.q-note span {
+  padding: 3px 10px;
+  border-radius: 8px;
+  background: rgba(255,255,255,0.07);
+}
+.options-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+.opt-btn {
+  cursor: pointer;
+  padding: 14px 14px 14px 12px;
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 12px;
+  background: rgba(255,255,255,0.05);
+  color: var(--white);
+  font-size: 13px;
+  font-family: 'Nunito', sans-serif;
+  font-weight: 600;
+  text-align: left;
+  line-height: 1.4;
+  transition: border-color 0.15s, background 0.15s;
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+}
+.opt-btn:hover:not(:disabled) {
+  border-color: var(--blue);
+  background: rgba(27,79,191,0.2);
+}
+.opt-letter {
+  width: 22px;
+  height: 22px;
+  border-radius: 6px;
+  background: rgba(255,255,255,0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 800;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+.opt-btn.correct {
+  border-color: #2e7d32;
+  background: rgba(29,185,84,0.15);
+}
+.opt-btn.correct .opt-letter { background: #2e7d32; color: var(--white); }
+.opt-btn.wrong {
+  border-color: #c62828;
+  background: rgba(230,57,70,0.12);
+}
+.opt-btn.wrong .opt-letter { background: #c62828; color: var(--white); }
+.opt-btn:disabled { cursor: default; }
+
+.q-feedback {
+  display: none;
+  padding: 14px 16px;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 14px;
+}
+.q-feedback.ok { background: rgba(29,185,84,0.18); border: 1px solid #2e7d32; color: #69f0ae; }
+.q-feedback.fail { background: rgba(230,57,70,0.15); border: 1px solid #c62828; color: #ff8a80; }
+.q-feedback-detail { font-size: 12px; font-weight: 600; margin-top: 3px; }
+
+.btn-continue {
+  display: none;
+  width: 100%;
+  padding: 15px;
+  background: var(--gold);
+  color: var(--navy);
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 20px;
+  letter-spacing: 2px;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.btn-continue:hover { background: var(--gold2); }
+
+/* ════════════════════════════════
+   WIN SCREEN
+════════════════════════════════ */
+#screen-win {
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 32px 20px;
+}
+
+.win-card {
+  background: var(--card-bg);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 24px;
+  padding: 36px 28px;
+  max-width: 440px;
+  width: 100%;
+}
+.win-trophy { font-size: 70px; margin-bottom: 10px; display: block; animation: bounce 1s ease infinite; }
+@keyframes bounce {
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+.win-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 48px;
+  color: var(--gold);
+  letter-spacing: 2px;
+  margin-bottom: 4px;
+}
+.win-sub { font-size: 13px; color: rgba(255,255,255,0.5); margin-bottom: 28px; }
+
+.podium-wrap { display: flex; justify-content: center; gap: 8px; margin-bottom: 24px; flex-wrap: wrap; }
+.podium-item {
+  padding: 12px 16px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 14px;
+  min-width: 100px;
+  text-align: center;
+}
+.podium-item.first { border-color: var(--gold); background: rgba(245,166,35,0.1); }
+.pod-rank { font-size: 22px; margin-bottom: 4px; }
+.pod-name { font-size: 13px; font-weight: 700; color: var(--white); }
+.pod-pos { font-size: 11px; color: rgba(255,255,255,0.45); margin-top: 2px; }
+
+.btn-replay {
+  width: 100%;
+  padding: 16px;
+  background: var(--blue);
+  color: var(--white);
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 22px;
+  letter-spacing: 2px;
+  border: none;
+  border-radius: 14px;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.btn-replay:hover { background: var(--blue2); }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 620px) {
+  .game-body { flex-direction: column-reverse; }
+  .sidebar { width: 100%; max-height: none; flex-direction: row; flex-wrap: wrap; overflow: visible; }
+  .sidebar-card { flex: 1; min-width: 140px; }
+  .options-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 400px) {
+  .main-title { font-size: 60px; }
+  .setup-card { padding: 20px 16px 18px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ════ START ════ -->
+<div class="screen active" id="screen-start">
+  <div class="brand-logo">&#9733;</div>
+  <div class="main-title">Trivia<br>Empresarial</div>
+  <div class="main-sub">Serpientes &amp; Escaleras &mdash; Reactivos CENEVAL</div>
+  <div class="brand-tag">&#9733; Sabiduria Empresarial Group &#9733;</div>
+
+  <div class="setup-card">
+    <div class="setup-section-label">Numero de jugadores</div>
+    <div class="count-row">
+      <button class="count-btn" onclick="changeCount(-1)">&#8722;</button>
+      <span id="player-count-display">2</span>
+      <span class="count-label">jugadores</span>
+      <button class="count-btn" onclick="changeCount(1)">+</button>
+    </div>
+    <div class="setup-section-label">Nombre de jugadores</div>
+    <div class="players-list" id="players-setup"></div>
+    <button class="btn-start" onclick="startGame()">Comenzar Juego</button>
+  </div>
+
+  <div class="stats-row">
+    <span class="stat-badge">&#9632; 2–6 jugadores</span>
+    <span class="stat-badge">&#9632; 20 reactivos</span>
+    <span class="stat-badge">&#9632; 100 casillas</span>
+  </div>
+</div>
+
+<!-- ════ GAME ════ -->
+<div class="screen" id="screen-game">
+  <div class="game-header">
+    <span class="game-header-title">Trivia Empresarial</span>
+    <span class="turn-chip" id="turn-chip">Turno: &mdash;</span>
+  </div>
+  <div class="game-body">
+    <div class="board-wrap">
+      <canvas id="board-canvas"></canvas>
+    </div>
+    <div class="sidebar">
+      <div class="sidebar-card">
+        <div class="sidebar-label">Jugadores</div>
+        <div id="players-list"></div>
+      </div>
+      <div class="sidebar-card">
+        <div class="sidebar-label">Dado</div>
+        <div class="dice-wrap">
+          <span class="dice-face" id="dice-display">&#9856;</span>
+          <button class="btn-roll" id="roll-btn" onclick="rollDice()">Tirar Dado</button>
+        </div>
+      </div>
+      <div class="sidebar-card">
+        <div class="sidebar-label">Historial</div>
+        <div class="log-entries" id="log-entries"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════ QUESTION ════ -->
+<div class="screen" id="screen-q">
+  <div class="q-container">
+    <div class="q-top">
+      <div class="q-player-badge" id="q-badge">Jugador</div>
+      <div class="q-label" id="q-label">Pregunta 1 / 20</div>
+    </div>
+    <div class="q-body">
+      <div class="q-note">
+        <span>&#10003; Acierto = +3 casillas</span>
+        <span>&#10007; Error = &minus;2 casillas</span>
+      </div>
+      <div class="q-text" id="q-text"></div>
+      <div class="options-grid" id="q-options"></div>
+      <div class="q-feedback" id="q-feedback"></div>
+      <button class="btn-continue" id="q-continue" onclick="continueAfterQ()">Continuar &#8594;</button>
+    </div>
+  </div>
+</div>
+
+<!-- ════ WIN ════ -->
+<div class="screen" id="screen-win">
+  <div class="win-card">
+    <span class="win-trophy">&#127942;</span>
+    <div class="win-title" id="win-title">Ganador!</div>
+    <div class="win-sub" id="win-sub">Partida finalizada &mdash; CENEVAL Empresarial</div>
+    <div class="podium-wrap" id="podium"></div>
+    <button class="btn-replay" onclick="resetGame()">Jugar de Nuevo</button>
+  </div>
+</div>
+
+<script>
+const QUESTIONS = [
+  {q:"¿Cuál es la función principal de la administración?", a:["Producir bienes","Planear, organizar, dirigir y controlar","Vender productos","Registrar operaciones"], c:1},
+  {q:"Establecer objetivos y determinar cómo alcanzarlos se llama:", a:["Organización","Dirección","Planeación","Control"], c:2},
+  {q:"¿Qué tipo de liderazgo fomenta la participación en decisiones?", a:["Autocrático","Democrático","Laissez-faire","Transaccional"], c:1},
+  {q:"La rentabilidad de una empresa se mide principalmente mediante:", a:["Núm. de empleados","Margen de utilidad neta","Antigüedad","Volumen de producción"], c:1},
+  {q:"Nivel de ventas donde no hay pérdida ni ganancia:", a:["Punto de equilibrio","Utilidad máxima","Capital invertido","Máxima producción"], c:0},
+  {q:"La Misión de una empresa describe:", a:["Metas a largo plazo","Su razón de ser y propósito","Utilidades esperadas","Estructura organizacional"], c:1},
+  {q:"¿Cuál de los siguientes es un recurso intangible?", a:["Maquinaria","Edificios","Marca comercial","Inventario"], c:2},
+  {q:"El análisis FODA evalúa:", a:["Fortalezas, Oportunidades, Debilidades y Amenazas","Flujos, Operaciones, Demanda y Activos","Fuerzas, Objetivos, Dirección y Acción","Finanzas, Organización, Datos y Avances"], c:0},
+  {q:"Estructura organizacional que agrupa empleados por funciones similares:", a:["Matricial","Divisional","Funcional","Por proyecto"], c:2},
+  {q:"Capital de trabajo neto =", a:["Activo fijo – Pasivo fijo","Activo circulante – Pasivo circulante","Ventas – Costos","Ingresos – Gastos"], c:1},
+  {q:"La motivación según Maslow se basa en:", a:["Ciclo continuo de metas","Jerarquía de necesidades humanas","Incentivos económicos exclusivamente","Teoría X e Y"], c:1},
+  {q:"¿Qué es el benchmarking?", a:["Producción en serie","Comparar con las mejores prácticas del sector","Tipo de presupuesto","Técnica de ventas"], c:1},
+  {q:"Ciclo de vida del producto:", a:["Diseño, Producción, Venta, Devolución","Introducción, Crecimiento, Madurez, Declive","Creación, Expansión, Dominio, Cierre","Investigación, Lanzamiento, Consolidación, Retiro"], c:1},
+  {q:"Objetivo principal del área de Recursos Humanos:", a:["Maximizar ventas","Gestionar el talento y bienestar del personal","Controlar el inventario","Administrar las finanzas"], c:1},
+  {q:"Precio bajo para ganar participación de mercado:", a:["Penetración de mercado","Descremado de precios","Precio de prestigio","Costo más margen"], c:0},
+  {q:"El flujo de caja (cash flow) mide:", a:["Utilidad contable del período","Entradas y salidas reales de efectivo","Valor de mercado de la empresa","Capital social"], c:1},
+  {q:"Contrato laboral sin fecha de terminación definida:", a:["Por obra determinada","Por tiempo determinado","Por tiempo indeterminado","Por temporada"], c:2},
+  {q:"La Responsabilidad Social Empresarial (RSE) implica:", a:["Solo maximizar utilidades","Compromisos éticos con empleados, sociedad y medioambiente","Reducir impuestos al mínimo","Aumentar producción sin límites"], c:1},
+  {q:"Función del presupuesto maestro:", a:["Calcular impuestos","Integrar todos los presupuestos operativos y financieros","Registrar gastos pasados","Auditar estados financieros"], c:1},
+  {q:"La cadena de valor de Porter busca:", a:["Identificar actividades con ventaja competitiva","Establecer el organigrama","Calcular costos de producción","Diseñar el proceso de selección de personal"], c:0}
+];
+
+const SNAKES  = {32:5, 49:8, 64:12, 84:22, 98:40};
+const LADDERS = {3:24, 10:38, 17:55, 43:67, 72:90};
+const Q_CELLS = new Set([5,10,15,20,25,30,35,40,45,50,55,60,65,70,75,80,85,90,95]);
+const P_COLORS = ["#E63946","#1B4FBF","#F5A623","#2E7D32","#9C27B0","#00BCD4"];
+const DICE_CH  = ["⚀","⚁","⚂","⚃","⚄","⚅"];
+const LETTERS  = ["A","B","C","D"];
+const RANKS    = ["🥇","🥈","🥉","4°","5°","6°"];
+
+let numPlayers=2, players=[], currentPlayer=0, gameState="idle", pendingPos=null, usedQ=[];
+
+function changeCount(d){
+  numPlayers = Math.max(2, Math.min(6, numPlayers+d));
+  document.getElementById("player-count-display").textContent = numPlayers;
+  buildSetup();
+}
+
+function buildSetup(){
+  const c = document.getElementById("players-setup");
+  c.innerHTML = "";
+  for(let i=0;i<numPlayers;i++){
+    const prev = players[i];
+    const row = document.createElement("div");
+    row.className = "player-row";
+    row.innerHTML = `<div class="color-dot" style="background:${P_COLORS[i]}"></div><input type="text" placeholder="Jugador ${i+1}" value="${prev?prev.name:""}" id="pname-${i}" maxlength="16">`;
+    c.appendChild(row);
+  }
+}
+buildSetup();
+
+function startGame(){
+  players = [];
+  for(let i=0;i<numPlayers;i++){
+    const el = document.getElementById("pname-"+i);
+    players.push({name: el&&el.value.trim() ? el.value.trim() : "Jugador "+(i+1), pos:1, color:P_COLORS[i], score:0});
+  }
+  currentPlayer = 0; usedQ = []; pendingPos = null; gameState = "rolling";
+  showScreen("game");
+  buildPCards();
+  resizeBoard();
+  updateTurnChip();
+  addLog("¡Juego iniciado! Turno de "+players[0].name, "special");
+  document.getElementById("roll-btn").disabled = false;
+}
+
+function showScreen(s){
+  document.querySelectorAll(".screen").forEach(el=>el.classList.remove("active"));
+  document.getElementById("screen-"+s).classList.add("active");
+  if(s==="game") setTimeout(resizeBoard, 50);
+}
+
+function resizeBoard(){
+  const canvas = document.getElementById("board-canvas");
+  const wrap   = canvas.parentElement;
+  const size   = Math.min(wrap.clientWidth||420, wrap.clientHeight||520, 520);
+  if(canvas.width !== size || canvas.height !== size){
+    canvas.width = size;
+    canvas.height = size;
+  }
+  drawBoard();
+}
+
+function buildPCards(){
+  const c = document.getElementById("players-list");
+  c.innerHTML = "";
+  players.forEach((p,i)=>{
+    const d = document.createElement("div");
+    d.className = "pcard"+(i===currentPlayer?" current":"");
+    d.id = "pcard-"+i;
+    d.innerHTML = `<div class="pcard-dot" style="background:${p.color}"></div>
+      <div class="pcard-info">
+        <div class="pcard-name">${p.name}</div>
+        <div class="pcard-pos">Casilla ${p.pos}</div>
+        ${i===currentPlayer?'<div class="pcard-turn">Tu turno ★</div>':''}
+      </div>`;
+    c.appendChild(d);
+  });
+}
+
+function updateTurnChip(){
+  const p = players[currentPlayer];
+  const chip = document.getElementById("turn-chip");
+  chip.textContent = "Turno: "+p.name;
+  chip.style.background = p.color;
+}
+
+function addLog(msg, cls=""){
+  const c = document.getElementById("log-entries");
+  const d = document.createElement("div");
+  d.className = "log-entry"+(cls?" "+cls:"");
+  d.textContent = msg;
+  c.insertBefore(d, c.firstChild);
+  while(c.children.length > 40) c.removeChild(c.lastChild);
+}
+
+function rollDice(){
+  if(gameState !== "rolling") return;
+  document.getElementById("roll-btn").disabled = true;
+  const dice = document.getElementById("dice-display");
+  dice.classList.add("rolling");
+  let t = 0;
+  const iv = setInterval(()=>{
+    dice.textContent = DICE_CH[Math.floor(Math.random()*6)];
+    t++;
+    if(t > 10){
+      clearInterval(iv);
+      dice.classList.remove("rolling");
+      const roll = Math.floor(Math.random()*6)+1;
+      dice.textContent = DICE_CH[roll-1];
+      processRoll(roll);
+    }
+  }, 55);
+}
+
+function processRoll(roll){
+  const p = players[currentPlayer];
+  let np = p.pos + roll;
+  addLog(p.name+" sacó "+roll);
+  if(np > 100) np = 100-(np-100);
+  p.pos = np;
+  buildPCards();
+  drawBoard();
+  if(np === 100){ setTimeout(()=>showWin(), 600); return; }
+  if(Q_CELLS.has(np)){
+    pendingPos = np;
+    addLog("Casilla de pregunta ❓ ("+np+")", "special");
+    setTimeout(()=>showQuestion(), 500);
+  } else {
+    checkSpecial(np);
+  }
+}
+
+function checkSpecial(pos){
+  const p = players[currentPlayer];
+  if(SNAKES[pos]){
+    const to = SNAKES[pos];
+    addLog("🐍 Serpiente! "+p.name+": "+pos+" → "+to, "bad");
+    setTimeout(()=>{ p.pos=to; buildPCards(); drawBoard(); nextTurn(); }, 800);
+  } else if(LADDERS[pos]){
+    const to = LADDERS[pos];
+    addLog("🪜 Escalera! "+p.name+": "+pos+" → "+to, "good");
+    setTimeout(()=>{ p.pos=to; buildPCards(); drawBoard(); nextTurn(); }, 800);
+  } else {
+    nextTurn();
+  }
+}
+
+function nextTurn(){
+  currentPlayer = (currentPlayer+1) % players.length;
+  gameState = "rolling";
+  buildPCards();
+  updateTurnChip();
+  addLog("Turno de "+players[currentPlayer].name);
+  document.getElementById("roll-btn").disabled = false;
+}
+
+function showQuestion(){
+  gameState = "question";
+  const avail = QUESTIONS.map((_,i)=>i).filter(i=>!usedQ.includes(i));
+  const pool  = avail.length > 0 ? avail : QUESTIONS.map((_,i)=>i);
+  const qi    = pool[Math.floor(Math.random()*pool.length)];
+  usedQ.push(qi);
+  if(usedQ.length >= QUESTIONS.length) usedQ = [];
+
+  const p = players[currentPlayer];
+  const q = QUESTIONS[qi];
+
+  const badge = document.getElementById("q-badge");
+  badge.textContent = p.name;
+  badge.style.background = p.color;
+
+  document.getElementById("q-label").textContent = "Reactivo "+(qi+1)+" de 20";
+  document.getElementById("q-text").textContent   = q.q;
+
+  const opts = document.getElementById("q-options");
+  opts.innerHTML = "";
+  q.a.forEach((ans,i)=>{
+    const btn = document.createElement("button");
+    btn.className = "opt-btn";
+    btn.innerHTML = `<span class="opt-letter">${LETTERS[i]}</span>${ans}`;
+    btn.onclick = ()=>answerQ(i, q.c, btn, q.a[q.c]);
+    opts.appendChild(btn);
+  });
+
+  const fb = document.getElementById("q-feedback");
+  fb.style.display = "none";
+  fb.className = "q-feedback";
+  document.getElementById("q-continue").style.display = "none";
+  showScreen("q");
+}
+
+function answerQ(chosen, correct, clickedBtn, correctText){
+  document.querySelectorAll(".opt-btn").forEach(b=>b.disabled=true);
+  const p   = players[currentPlayer];
+  const fb  = document.getElementById("q-feedback");
+  document.querySelectorAll(".opt-btn")[correct].classList.add("correct");
+
+  if(chosen === correct){
+    clickedBtn.classList.add("correct");
+    let np = Math.min(100, (pendingPos||p.pos)+3);
+    pendingPos = np;
+    fb.innerHTML = `✔ ¡Correcto! +3 casillas → Casilla ${np}<div class="q-feedback-detail">Respuesta: ${correctText}</div>`;
+    fb.className = "q-feedback ok";
+    p.score++;
+    addLog(p.name+" respondió correcto! +3 casillas", "good");
+  } else {
+    clickedBtn.classList.add("wrong");
+    let np = Math.max(1, (pendingPos||p.pos)-2);
+    pendingPos = np;
+    fb.innerHTML = `✘ Incorrecto. −2 casillas → Casilla ${np}<div class="q-feedback-detail">Correcta: ${correctText}</div>`;
+    fb.className = "q-feedback fail";
+    addLog(p.name+" respondió incorrecto. −2 casillas", "bad");
+  }
+  fb.style.display = "block";
+  document.getElementById("q-continue").style.display = "block";
+}
+
+function continueAfterQ(){
+  const p = players[currentPlayer];
+  if(pendingPos !== null){ p.pos = pendingPos; pendingPos = null; }
+  buildPCards();
+  drawBoard();
+  if(p.pos === 100){ showWin(); return; }
+  showScreen("game");
+  checkSpecial(p.pos);
+}
+
+function showWin(){
+  const winner  = players.reduce((a,b)=>b.pos>a.pos?b:a);
+  const sorted  = [...players].sort((a,b)=>b.pos-a.pos);
+  document.getElementById("win-title").textContent = winner.name + " ganó!";
+  document.getElementById("win-sub").textContent   = "Partida finalizada · Sabiduria Empresarial Group CENEVAL";
+
+  const pod = document.getElementById("podium");
+  pod.innerHTML = "";
+  sorted.forEach((p,i)=>{
+    const d = document.createElement("div");
+    d.className = "podium-item"+(i===0?" first":"");
+    d.innerHTML = `<div class="pod-rank">${RANKS[i]}</div><div class="pod-name" style="color:${p.color}">${p.name}</div><div class="pod-pos">Casilla ${p.pos}</div>`;
+    pod.appendChild(d);
+  });
+  showScreen("win");
+}
+
+function resetGame(){
+  players=[]; currentPlayer=0; usedQ=[]; pendingPos=null; gameState="idle";
+  buildSetup();
+  showScreen("start");
+}
+
+/* ─────────── BOARD DRAWING ─────────── */
+const CELL_FILL = { normal:["#16213E","#1E2A4A"], snake:"#7f1d1d", ladder:"#14532d", question:"#3b0764", start:"#1e3a8a", goal:"#78350f" };
+const CELL_TEXT_COLOR = { snake:"#fca5a5", ladder:"#86efac", question:"#d8b4fe", start:"#93c5fd", goal:"#fbbf24", normal:"rgba(255,255,255,0.75)" };
+
+function cellCoord(n){
+  const idx = n - 1;
+  const rowB = Math.floor(idx/10);
+  const vRow = 9 - rowB;
+  const col  = rowB%2===0 ? idx%10 : 9-(idx%10);
+  return {col, row:vRow};
+}
+
+function drawBoard(){
+  const canvas = document.getElementById("board-canvas");
+  if(!canvas) return;
+  const ctx  = canvas.getContext("2d");
+  const sz   = canvas.width;
+  const pad  = 3;
+  const cs   = (sz - pad*2) / 10;
+
+  ctx.clearRect(0,0,sz,sz);
+  ctx.fillStyle = "#0a0f1e";
+  ctx.beginPath(); ctx.roundRect(0,0,sz,sz,10); ctx.fill();
+
+  for(let n=1;n<=100;n++){
+    const {col,row} = cellCoord(n);
+    const x = pad + col*cs, y = pad + row*cs;
+
+    let fill  = CELL_FILL.normal[n%2];
+    let tcol  = CELL_TEXT_COLOR.normal;
+    let icon  = "";
+    if(n===1)      { fill=CELL_FILL.start;   tcol=CELL_TEXT_COLOR.start;    icon=""; }
+    else if(n===100){ fill=CELL_FILL.goal;   tcol=CELL_TEXT_COLOR.goal;     icon=""; }
+    else if(SNAKES[n])  { fill=CELL_FILL.snake;   tcol=CELL_TEXT_COLOR.snake;  icon="S"; }
+    else if(LADDERS[n]) { fill=CELL_FILL.ladder;  tcol=CELL_TEXT_COLOR.ladder; icon="E"; }
+    else if(Q_CELLS.has(n)){ fill=CELL_FILL.question; tcol=CELL_TEXT_COLOR.question; icon="?"; }
+
+    ctx.fillStyle = fill;
+    ctx.beginPath(); ctx.roundRect(x+0.5,y+0.5,cs-1,cs-1,3); ctx.fill();
+
+    const fs  = Math.max(7, cs*0.21);
+    ctx.font  = `bold ${fs}px 'Nunito',sans-serif`;
+    ctx.fillStyle  = tcol;
+    ctx.textAlign  = "center";
+    ctx.textBaseline = "middle";
+
+    if(n===100){ ctx.fillText("META",x+cs/2,y+cs/2); }
+    else if(n===1){ ctx.fillText("INICIO",x+cs/2,y+cs/2); }
+    else if(icon){
+      ctx.fillText(String(n), x+cs/2, y+cs*0.34);
+      const is = Math.max(8, cs*0.3);
+      ctx.font = `bold ${is}px 'Nunito',sans-serif`;
+      ctx.fillText(icon, x+cs/2, y+cs*0.72);
+    } else {
+      ctx.fillText(String(n), x+cs/2, y+cs/2);
+    }
+  }
+
+  // Player tokens
+  const posMap = {};
+  players.forEach((p,i)=>{ posMap[p.pos] = posMap[p.pos]||[]; posMap[p.pos].push(i); });
+  Object.entries(posMap).forEach(([pos,idxs])=>{
+    const {col,row} = cellCoord(Number(pos));
+    const cx = pad+col*cs+cs/2, cy = pad+row*cs+cs/2;
+    const r  = Math.max(5, cs*0.19);
+    idxs.forEach((pi,ti)=>{
+      const ang = (2*Math.PI*ti/idxs.length) - Math.PI/2;
+      const sp  = idxs.length>1 ? r*0.9 : 0;
+      const tx  = cx + sp*Math.cos(ang);
+      const ty  = cy + sp*Math.sin(ang);
+      if(pi===currentPlayer){
+        ctx.beginPath(); ctx.arc(tx,ty,r+3,0,2*Math.PI);
+        ctx.fillStyle = "rgba(255,215,0,0.35)"; ctx.fill();
+      }
+      ctx.beginPath(); ctx.arc(tx,ty,r,0,2*Math.PI);
+      ctx.fillStyle = players[pi].color; ctx.fill();
+      ctx.strokeStyle = "#fff"; ctx.lineWidth = 1.5; ctx.stroke();
+      if(pi===currentPlayer){
+        ctx.beginPath(); ctx.arc(tx,ty,r+2.5,0,2*Math.PI);
+        ctx.strokeStyle="#FFD700"; ctx.lineWidth=2; ctx.stroke();
+      }
+    });
+  });
+
+  // Legend
+  const legItems=[{c:CELL_FILL.snake,l:"S=Serpiente"},{c:CELL_FILL.ladder,l:"E=Escalera"},{c:CELL_FILL.question,l:"?=Pregunta"}];
+  const lw=(sz-pad*2)/3;
+  legItems.forEach((item,i)=>{
+    ctx.fillStyle=item.c;
+    ctx.beginPath(); ctx.roundRect(pad+i*lw+1, sz-16, lw-2, 13, 2); ctx.fill();
+    ctx.fillStyle="rgba(255,255,255,0.85)";
+    ctx.font=`bold 8px sans-serif`; ctx.textAlign="center"; ctx.textBaseline="middle";
+    ctx.fillText(item.l, pad+i*lw+lw/2, sz-9);
+  });
+}
+
+window.addEventListener("resize", ()=>{ if(document.getElementById("screen-game").classList.contains("active")) resizeBoard(); });
+</script>
+</body>
+</html>
