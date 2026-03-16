@@ -603,8 +603,18 @@ body::after {
 
   <div class="stats-row">
     <span class="stat-badge">&#9632; 2–6 jugadores</span>
-    <span class="stat-badge">&#9632; 20 reactivos</span>
-    <span class="stat-badge">&#9632; 100 casillas</span>
+    <span class="stat-badge">&#9632; 70 reactivos</span>
+    <span class="stat-badge">&#9632; 7 áreas CENEVAL</span>
+  </div>
+
+  <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-top:14px;max-width:480px;">
+    <span style="background:#1B4FBF;color:#fff;font-size:11px;font-weight:700;padding:4px 12px;border-radius:20px;">Administración</span>
+    <span style="background:#0E7C5B;color:#fff;font-size:11px;font-weight:700;padding:4px 12px;border-radius:20px;">Contabilidad</span>
+    <span style="background:#7C1D6F;color:#fff;font-size:11px;font-weight:700;padding:4px 12px;border-radius:20px;">Derecho Empresarial</span>
+    <span style="background:#C05621;color:#fff;font-size:11px;font-weight:700;padding:4px 12px;border-radius:20px;">Mercadotecnia</span>
+    <span style="background:#155E75;color:#fff;font-size:11px;font-weight:700;padding:4px 12px;border-radius:20px;">Recursos Humanos</span>
+    <span style="background:#92400E;color:#fff;font-size:11px;font-weight:700;padding:4px 12px;border-radius:20px;">Economía</span>
+    <span style="background:#065F46;color:#fff;font-size:11px;font-weight:700;padding:4px 12px;border-radius:20px;">Emprendimiento</span>
   </div>
 </div>
 
@@ -671,26 +681,89 @@ body::after {
 
 <script>
 const QUESTIONS = [
-  {q:"¿Cuál es la función principal de la administración?", a:["Producir bienes","Planear, organizar, dirigir y controlar","Vender productos","Registrar operaciones"], c:1},
-  {q:"Establecer objetivos y determinar cómo alcanzarlos se llama:", a:["Organización","Dirección","Planeación","Control"], c:2},
-  {q:"¿Qué tipo de liderazgo fomenta la participación en decisiones?", a:["Autocrático","Democrático","Laissez-faire","Transaccional"], c:1},
-  {q:"La rentabilidad de una empresa se mide principalmente mediante:", a:["Núm. de empleados","Margen de utilidad neta","Antigüedad","Volumen de producción"], c:1},
-  {q:"Nivel de ventas donde no hay pérdida ni ganancia:", a:["Punto de equilibrio","Utilidad máxima","Capital invertido","Máxima producción"], c:0},
-  {q:"La Misión de una empresa describe:", a:["Metas a largo plazo","Su razón de ser y propósito","Utilidades esperadas","Estructura organizacional"], c:1},
-  {q:"¿Cuál de los siguientes es un recurso intangible?", a:["Maquinaria","Edificios","Marca comercial","Inventario"], c:2},
-  {q:"El análisis FODA evalúa:", a:["Fortalezas, Oportunidades, Debilidades y Amenazas","Flujos, Operaciones, Demanda y Activos","Fuerzas, Objetivos, Dirección y Acción","Finanzas, Organización, Datos y Avances"], c:0},
-  {q:"Estructura organizacional que agrupa empleados por funciones similares:", a:["Matricial","Divisional","Funcional","Por proyecto"], c:2},
-  {q:"Capital de trabajo neto =", a:["Activo fijo – Pasivo fijo","Activo circulante – Pasivo circulante","Ventas – Costos","Ingresos – Gastos"], c:1},
-  {q:"La motivación según Maslow se basa en:", a:["Ciclo continuo de metas","Jerarquía de necesidades humanas","Incentivos económicos exclusivamente","Teoría X e Y"], c:1},
-  {q:"¿Qué es el benchmarking?", a:["Producción en serie","Comparar con las mejores prácticas del sector","Tipo de presupuesto","Técnica de ventas"], c:1},
-  {q:"Ciclo de vida del producto:", a:["Diseño, Producción, Venta, Devolución","Introducción, Crecimiento, Madurez, Declive","Creación, Expansión, Dominio, Cierre","Investigación, Lanzamiento, Consolidación, Retiro"], c:1},
-  {q:"Objetivo principal del área de Recursos Humanos:", a:["Maximizar ventas","Gestionar el talento y bienestar del personal","Controlar el inventario","Administrar las finanzas"], c:1},
-  {q:"Precio bajo para ganar participación de mercado:", a:["Penetración de mercado","Descremado de precios","Precio de prestigio","Costo más margen"], c:0},
-  {q:"El flujo de caja (cash flow) mide:", a:["Utilidad contable del período","Entradas y salidas reales de efectivo","Valor de mercado de la empresa","Capital social"], c:1},
-  {q:"Contrato laboral sin fecha de terminación definida:", a:["Por obra determinada","Por tiempo determinado","Por tiempo indeterminado","Por temporada"], c:2},
-  {q:"La Responsabilidad Social Empresarial (RSE) implica:", a:["Solo maximizar utilidades","Compromisos éticos con empleados, sociedad y medioambiente","Reducir impuestos al mínimo","Aumentar producción sin límites"], c:1},
-  {q:"Función del presupuesto maestro:", a:["Calcular impuestos","Integrar todos los presupuestos operativos y financieros","Registrar gastos pasados","Auditar estados financieros"], c:1},
-  {q:"La cadena de valor de Porter busca:", a:["Identificar actividades con ventaja competitiva","Establecer el organigrama","Calcular costos de producción","Diseñar el proceso de selección de personal"], c:0}
+  // ── ADMINISTRACIÓN Y NEGOCIOS (10) ──
+  {area:"Administración",color:"#1B4FBF",q:"¿Cuál es la función principal de la administración?", a:["Producir bienes","Planear, organizar, dirigir y controlar","Vender productos","Registrar operaciones"], c:1},
+  {area:"Administración",color:"#1B4FBF",q:"Establecer objetivos y determinar cómo alcanzarlos se llama:", a:["Organización","Dirección","Planeación","Control"], c:2},
+  {area:"Administración",color:"#1B4FBF",q:"El análisis FODA evalúa:", a:["Fortalezas, Oportunidades, Debilidades y Amenazas","Flujos, Operaciones, Demanda y Activos","Fuerzas, Objetivos, Dirección y Acción","Finanzas, Organización, Datos y Avances"], c:0},
+  {area:"Administración",color:"#1B4FBF",q:"Nivel de ventas donde no hay pérdida ni ganancia:", a:["Punto de equilibrio","Utilidad máxima","Capital invertido","Máxima producción"], c:0},
+  {area:"Administración",color:"#1B4FBF",q:"La Misión de una empresa describe:", a:["Metas a largo plazo","Su razón de ser y propósito","Utilidades esperadas","Estructura organizacional"], c:1},
+  {area:"Administración",color:"#1B4FBF",q:"La motivación según Maslow se basa en:", a:["Ciclo continuo de metas","Jerarquía de necesidades humanas","Incentivos económicos exclusivamente","Teoría X e Y"], c:1},
+  {area:"Administración",color:"#1B4FBF",q:"¿Qué es el benchmarking?", a:["Producción en serie","Comparar con las mejores prácticas del sector","Tipo de presupuesto","Técnica de ventas"], c:1},
+  {area:"Administración",color:"#1B4FBF",q:"La Responsabilidad Social Empresarial (RSE) implica:", a:["Solo maximizar utilidades","Compromisos éticos con empleados, sociedad y medioambiente","Reducir impuestos al mínimo","Aumentar producción sin límites"], c:1},
+  {area:"Administración",color:"#1B4FBF",q:"Función del presupuesto maestro:", a:["Calcular impuestos","Integrar todos los presupuestos operativos y financieros","Registrar gastos pasados","Auditar estados financieros"], c:1},
+  {area:"Administración",color:"#1B4FBF",q:"La cadena de valor de Porter busca:", a:["Identificar actividades con ventaja competitiva","Establecer el organigrama","Calcular costos de producción","Diseñar el proceso de selección de personal"], c:0},
+
+  // ── CONTABILIDAD Y FINANZAS (10) ──
+  {area:"Contabilidad",color:"#0E7C5B",q:"La ecuación contable fundamental es:", a:["Ingresos – Gastos = Utilidad","Activo = Pasivo + Capital","Ventas – Costos = Margen","Activo – Pasivo = Deuda"], c:1},
+  {area:"Contabilidad",color:"#0E7C5B",q:"¿Qué es la depreciación?", a:["Aumento del valor de un activo","Pérdida de valor de un activo con el tiempo","Ingreso extraordinario","Tipo de deuda"], c:1},
+  {area:"Contabilidad",color:"#0E7C5B",q:"La razón de liquidez mide:", a:["La rentabilidad del negocio","La capacidad de pagar deudas a corto plazo","El nivel de endeudamiento","El margen de utilidad"], c:1},
+  {area:"Contabilidad",color:"#0E7C5B",q:"El Estado de Resultados muestra:", a:["Activos y pasivos","Ingresos, costos y utilidad de un período","Solo los gastos","El capital contable"], c:1},
+  {area:"Contabilidad",color:"#0E7C5B",q:"El Balance General muestra:", a:["Las ventas del período","Los activos, pasivos y capital de la empresa","Solo las deudas","Los gastos operativos"], c:1},
+  {area:"Contabilidad",color:"#0E7C5B",q:"¿Qué es el ROI (Retorno sobre la Inversión)?", a:["Un tipo de impuesto","Medida de rentabilidad de una inversión","Un registro contable","Un tipo de bono"], c:1},
+  {area:"Contabilidad",color:"#0E7C5B",q:"Los pasivos de una empresa son:", a:["Sus bienes y derechos","Sus obligaciones y deudas con terceros","Sus utilidades acumuladas","Sus activos fijos"], c:1},
+  {area:"Contabilidad",color:"#0E7C5B",q:"¿Qué es el apalancamiento financiero?", a:["Vender más productos","Usar deuda para financiar activos y aumentar rendimientos","Reducir costos operativos","Aumentar el capital propio"], c:1},
+  {area:"Contabilidad",color:"#0E7C5B",q:"Una empresa es solvente cuando:", a:["Vende más que sus competidores","Puede pagar todas sus deudas con sus activos","Tiene muchos empleados","Tiene alta participación de mercado"], c:1},
+  {area:"Contabilidad",color:"#0E7C5B",q:"El margen de utilidad neta se calcula como:", a:["Ventas / Activos","Utilidad neta / Ventas × 100","Activos / Pasivos","Costos / Ventas"], c:1},
+
+  // ── DERECHO EMPRESARIAL (10) ──
+  {area:"Derecho Empresarial",color:"#7C1D6F",q:"¿Qué es una Sociedad Anónima (S.A.)?", a:["Una empresa sin fines de lucro","Sociedad donde el capital se divide en acciones y la responsabilidad es limitada","Un sindicato de trabajadores","Una cooperativa"], c:1},
+  {area:"Derecho Empresarial",color:"#7C1D6F",q:"El SAT en México es:", a:["Sistema de Asistencia Técnica","Servicio de Administración Tributaria que recauda impuestos","Sindicato de Administradores","Sociedad de Asesoría Tributaria"], c:1},
+  {area:"Derecho Empresarial",color:"#7C1D6F",q:"La propiedad intelectual protege:", a:["Solo los bienes físicos","Creaciones del intelecto como marcas, patentes y derechos de autor","Los activos fijos","El capital humano"], c:1},
+  {area:"Derecho Empresarial",color:"#7C1D6F",q:"Las prestaciones mínimas de ley en México incluyen:", a:["Solo el salario","Aguinaldo, vacaciones, prima vacacional e IMSS, entre otras","Solo seguro médico","Solo vacaciones"], c:1},
+  {area:"Derecho Empresarial",color:"#7C1D6F",q:"¿Qué es una persona moral en México?", a:["Una persona física con negocios","Una entidad con derechos y obligaciones reconocida por la ley","Un empleado de gobierno","Un trabajador independiente"], c:1},
+  {area:"Derecho Empresarial",color:"#7C1D6F",q:"El IMSS en México es:", a:["Un banco público","El Instituto Mexicano del Seguro Social que brinda seguridad social","Una ley fiscal","Un tribunal laboral"], c:1},
+  {area:"Derecho Empresarial",color:"#7C1D6F",q:"¿Qué significa responsabilidad limitada en una empresa?", a:["La empresa tiene pocos empleados","Los socios solo responden por el monto de su aportación al capital","La empresa no puede contratar","Los socios responden con todo su patrimonio"], c:1},
+  {area:"Derecho Empresarial",color:"#7C1D6F",q:"¿Qué es la quiebra empresarial?", a:["Un éxito financiero","Proceso legal cuando una empresa no puede pagar sus deudas","Una fusión de empresas","Una estrategia de expansión"], c:1},
+  {area:"Derecho Empresarial",color:"#7C1D6F",q:"¿Qué es el finiquito laboral?", a:["Un tipo de contrato","Liquidación de derechos al término de la relación laboral","Un bono de productividad","Un préstamo patronal"], c:1},
+  {area:"Derecho Empresarial",color:"#7C1D6F",q:"El ISR (Impuesto Sobre la Renta) grava:", a:["Las importaciones","Los ingresos de personas físicas y morales","Solo las ventas","El valor agregado de productos"], c:1},
+
+  // ── MERCADOTECNIA Y VENTAS (10) ──
+  {area:"Mercadotecnia",color:"#C05621",q:"Las 4 P's del Marketing son:", a:["Precio, Plaza, Producto y Publicidad","Producto, Precio, Plaza y Promoción","Personas, Procesos, Plaza y Precio","Producto, Publicidad, Personas y Plaza"], c:1},
+  {area:"Mercadotecnia",color:"#C05621",q:"El posicionamiento de marca busca:", a:["Bajar los costos de producción","Ocupar un lugar claro y diferenciado en la mente del consumidor","Aumentar la fuerza de ventas","Reducir el precio del producto"], c:1},
+  {area:"Mercadotecnia",color:"#C05621",q:"La segmentación de mercado divide a los consumidores por:", a:["Número de empleados","Variables como demografía, geografía, psicografía y conducta","Volumen de producción","Tipo de proveedor"], c:1},
+  {area:"Mercadotecnia",color:"#C05621",q:"¿Qué es el CRM (Customer Relationship Management)?", a:["Un tipo de publicidad","Sistema para gestionar las relaciones con los clientes","Software de contabilidad","Estrategia de precios"], c:1},
+  {area:"Mercadotecnia",color:"#C05621",q:"El precio de descremado consiste en:", a:["Vender a precio muy bajo para ganar mercado","Lanzar el producto a precio alto y reducirlo gradualmente","Igualar el precio de la competencia","Ofrecer descuentos permanentes"], c:1},
+  {area:"Mercadotecnia",color:"#C05621",q:"¿Qué es el branding?", a:["Una técnica de ventas directas","Gestión de la identidad y percepción de una marca","Un tipo de distribución","Una estrategia de precios"], c:1},
+  {area:"Mercadotecnia",color:"#C05621",q:"La investigación de mercados sirve para:", a:["Reducir impuestos","Obtener información sobre el mercado y los consumidores para tomar decisiones","Contratar personal","Calcular depreciación"], c:1},
+  {area:"Mercadotecnia",color:"#C05621",q:"¿Qué es el funnel de ventas?", a:["Un tipo de producto","El proceso que sigue un cliente desde conocer el producto hasta comprarlo","Una estrategia de distribución","Un indicador financiero"], c:1},
+  {area:"Mercadotecnia",color:"#C05621",q:"La propuesta de valor de un producto describe:", a:["Solo su precio","Los beneficios únicos que ofrece y por qué el cliente debería elegirlo","Su costo de producción","Su proceso de fabricación"], c:1},
+  {area:"Mercadotecnia",color:"#C05621",q:"El NPS (Net Promoter Score) mide:", a:["Las ventas netas","La probabilidad de que un cliente recomiende la empresa","Los costos de distribución","El margen bruto"], c:1},
+
+  // ── RECURSOS HUMANOS AVANZADO (10) ──
+  {area:"Recursos Humanos",color:"#155E75",q:"La evaluación de 360 grados en RRHH consiste en:", a:["Evaluar solo el desempeño numérico","Retroalimentación desde múltiples perspectivas: jefes, pares y subordinados","Revisar únicamente la asistencia","Calcular el salario anual"], c:1},
+  {area:"Recursos Humanos",color:"#155E75",q:"¿Qué es el onboarding?", a:["Un proceso de despido","Proceso de integración y adaptación de un nuevo empleado a la organización","Una evaluación de desempeño","Un plan de jubilación"], c:1},
+  {area:"Recursos Humanos",color:"#155E75",q:"El salario emocional se refiere a:", a:["Un bono en efectivo","Beneficios no económicos que mejoran la calidad de vida del empleado","El aumento salarial anual","Las horas extra pagadas"], c:1},
+  {area:"Recursos Humanos",color:"#155E75",q:"El síndrome de burnout en el trabajo se caracteriza por:", a:["Alta productividad sostenida","Agotamiento extremo, despersonalización y reducción del rendimiento laboral","Motivación elevada","Trabajo en equipo efectivo"], c:1},
+  {area:"Recursos Humanos",color:"#155E75",q:"El reclutamiento interno se refiere a:", a:["Contratar personas de otras empresas","Cubrir vacantes con empleados ya existentes en la organización","Contratar practicantes","Subcontratar personal"], c:1},
+  {area:"Recursos Humanos",color:"#155E75",q:"La capacitación y desarrollo busca:", a:["Reducir el número de empleados","Mejorar habilidades y competencias del personal para un mejor desempeño","Calcular las prestaciones","Administrar los despidos"], c:1},
+  {area:"Recursos Humanos",color:"#155E75",q:"El clima organizacional se refiere a:", a:["La temperatura de la oficina","La percepción que tienen los empleados sobre su ambiente de trabajo","El organigrama de la empresa","La rotación de puestos"], c:1},
+  {area:"Recursos Humanos",color:"#155E75",q:"¿Qué es la descripción de puesto?", a:["El salario del empleado","Documento que detalla las funciones, responsabilidades y requisitos de un cargo","El contrato de trabajo","La evaluación anual"], c:1},
+  {area:"Recursos Humanos",color:"#155E75",q:"¿Qué es el headhunting?", a:["Un tipo de capacitación","Búsqueda activa de candidatos talentosos para puestos directivos o especializados","Una prestación laboral","Un software de RRHH"], c:1},
+  {area:"Recursos Humanos",color:"#155E75",q:"¿Qué es el teletrabajo?", a:["Trabajo en una sucursal diferente","Modalidad laboral donde el empleado realiza sus funciones desde un lugar remoto","Trabajo nocturno","Trabajo por proyecto"], c:1},
+
+  // ── ECONOMÍA (10) ──
+  {area:"Economía",color:"#92400E",q:"¿Qué es el PIB (Producto Interno Bruto)?", a:["El presupuesto del gobierno","El valor total de bienes y servicios producidos en un país en un período","La deuda pública","Las exportaciones totales"], c:1},
+  {area:"Economía",color:"#92400E",q:"La inflación es:", a:["Aumento del poder adquisitivo","Aumento generalizado y sostenido del nivel de precios","Reducción de la deuda pública","Crecimiento del empleo"], c:1},
+  {area:"Economía",color:"#92400E",q:"La ley de la oferta y la demanda establece que:", a:["Los precios siempre suben","Al aumentar el precio, la demanda baja y la oferta sube","La oferta siempre supera la demanda","Los precios los fija el gobierno"], c:1},
+  {area:"Economía",color:"#92400E",q:"¿Qué es el tipo de cambio?", a:["Una tasa de interés bancaria","El precio al que se intercambia una moneda por otra","El precio del petróleo","La tasa de inflación"], c:1},
+  {area:"Economía",color:"#92400E",q:"¿Qué es un monopolio?", a:["Un mercado con muchos competidores","Mercado dominado por un solo productor o vendedor","Un mercado internacional","Una estrategia de precios bajos"], c:1},
+  {area:"Economía",color:"#92400E",q:"La política fiscal se refiere a:", a:["Las decisiones del banco central sobre tasas de interés","El uso del gasto público e impuestos para influir en la economía","El control del tipo de cambio","La regulación del comercio exterior"], c:1},
+  {area:"Economía",color:"#92400E",q:"¿Qué es la balanza comercial?", a:["El presupuesto del gobierno","Diferencia entre las exportaciones e importaciones de un país","El saldo de la deuda externa","Las reservas internacionales"], c:1},
+  {area:"Economía",color:"#92400E",q:"¿Qué es la devaluación de una moneda?", a:["Aumento del valor de la moneda frente a otras","Reducción del valor de la moneda frente a otras divisas","Aumento del PIB","Reducción de la inflación"], c:1},
+  {area:"Economía",color:"#92400E",q:"¿Qué es el costo de oportunidad?", a:["El costo de producir un bien","El valor de la mejor alternativa a la que se renuncia al tomar una decisión","El precio de mercado","El costo fijo de operación"], c:1},
+  {area:"Economía",color:"#92400E",q:"¿Qué es el desempleo estructural?", a:["Desempleo por crisis económica temporal","Desempleo causado por cambios en la estructura económica o tecnológica","Desempleo estacional","Desempleo voluntario"], c:1},
+
+  // ── EMPRENDIMIENTO E INNOVACIÓN (10) ──
+  {area:"Emprendimiento",color:"#065F46",q:"¿Qué es un MVP (Mínimo Producto Viable)?", a:["El producto más caro del catálogo","Versión básica de un producto para validar la idea con el mínimo esfuerzo","El producto más vendido","El prototipo final"], c:1},
+  {area:"Emprendimiento",color:"#065F46",q:"La metodología Lean Startup se centra en:", a:["Construir grandes equipos desde el inicio","Aprender rápido mediante ciclos de construir, medir y aprender","Invertir al máximo desde el inicio","Copiar modelos exitosos"], c:1},
+  {area:"Emprendimiento",color:"#065F46",q:"¿Qué es un modelo de negocio?", a:["El organigrama de la empresa","La forma en que una empresa crea, entrega y captura valor","El plan de marketing","El presupuesto anual"], c:1},
+  {area:"Emprendimiento",color:"#065F46",q:"El pitch de negocios es:", a:["Un informe financiero detallado","Presentación breve y persuasiva de una idea de negocio ante inversores","Un plan de marketing","Un contrato de sociedad"], c:1},
+  {area:"Emprendimiento",color:"#065F46",q:"¿Qué es el bootstrapping en emprendimiento?", a:["Buscar inversores externos","Financiar el negocio con recursos propios sin depender de inversión externa","Pedir préstamos bancarios","Emitir acciones en bolsa"], c:1},
+  {area:"Emprendimiento",color:"#065F46",q:"¿Qué es la innovación disruptiva?", a:["Mejora incremental de productos existentes","Innovación que transforma radicalmente un mercado desplazando a los líderes actuales","Una campaña de marketing","Un proceso de reducción de costos"], c:1},
+  {area:"Emprendimiento",color:"#065F46",q:"¿Qué es un unicornio en el mundo startup?", a:["Una empresa con muchos productos","Startup que alcanza una valoración de 1,000 millones de dólares","Una empresa sin deudas","Una empresa familiar exitosa"], c:1},
+  {area:"Emprendimiento",color:"#065F46",q:"El Design Thinking es:", a:["Un software de diseño gráfico","Metodología centrada en el usuario para resolver problemas de forma creativa","Un tipo de contrato de diseño","Una técnica de ventas"], c:1},
+  {area:"Emprendimiento",color:"#065F46",q:"¿Qué es el crowdfunding?", a:["Un tipo de préstamo bancario","Financiamiento colectivo donde muchas personas aportan pequeñas cantidades","Una inversión de capital de riesgo","Un subsidio gubernamental"], c:1},
+  {area:"Emprendimiento",color:"#065F46",q:"El concepto de 'océano azul' en estrategia empresarial significa:", a:["Competir en mercados existentes y muy disputados","Crear un nuevo espacio de mercado sin competencia relevante","Reducir precios drásticamente","Fusionarse con un competidor"], c:1}
 ];
 
 const SNAKES  = {32:5, 49:8, 64:12, 84:22, 98:40};
@@ -863,8 +936,20 @@ function showQuestion(){
   badge.textContent = p.name;
   badge.style.background = p.color;
 
-  document.getElementById("q-label").textContent = "Reactivo "+(qi+1)+" de 20";
-  document.getElementById("q-text").textContent   = q.q;
+  document.getElementById("q-label").textContent = q.area + "  •  Reactivo " + (qi+1) + " / 70";
+
+  // Area badge
+  let areaBadge = document.getElementById("q-area-badge");
+  if(!areaBadge){
+    areaBadge = document.createElement("div");
+    areaBadge.id = "q-area-badge";
+    areaBadge.style.cssText = "display:inline-block;padding:4px 14px;border-radius:20px;font-size:12px;font-weight:700;color:#fff;margin-bottom:12px;letter-spacing:0.5px;";
+    document.getElementById("q-text").before(areaBadge);
+  }
+  areaBadge.textContent = "📚 " + q.area;
+  areaBadge.style.background = q.color;
+
+  document.getElementById("q-text").textContent = q.q;
 
   const opts = document.getElementById("q-options");
   opts.innerHTML = "";
